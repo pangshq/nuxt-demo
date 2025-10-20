@@ -1,1 +1,0 @@
-import{_ as a,y as s,C as e,A as c,g as n,z as _}from"#entry";const r={},d={class:"page"},p={class:"content"};function i(v,m){const t=n("van-nav-bar"),o=n("van-empty");return _(),s("div",d,[e(t,{title:"工具"}),c("div",p,[e(o,{description:"这里放置常用工具"})])])}const f=a(r,[["render",i],["__scopeId","data-v-4ed381df"]]);export{f as default};

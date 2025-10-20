@@ -1,0 +1,1 @@
+import{_ as o,y as s,C as e,A as c,g as n,z as _}from"#entry";const r={},d={class:"page"},p={class:"content"};function i(v,m){const t=n("van-nav-bar"),a=n("van-empty");return _(),s("div",d,[e(t,{title:"策略"}),c("div",p,[e(a,{description:"这里将展示策略列表与详情（待实现）"})])])}const f=o(r,[["render",i],["__scopeId","data-v-249a7159"]]);export{f as default};

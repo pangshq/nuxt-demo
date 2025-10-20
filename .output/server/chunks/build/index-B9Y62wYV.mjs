@@ -1,0 +1,126 @@
+import { defineComponent, ref, withAsyncContext, resolveComponent, mergeProps, unref, isRef, withCtx, createVNode, useSSRContext } from 'vue';
+import { ssrRenderAttrs, ssrRenderComponent, ssrInterpolate, ssrRenderList, ssrRenderClass } from 'vue/server-renderer';
+import { u as useFetch } from './fetch-Bjlqqv0_.mjs';
+import { _ as _export_sfc, n as navigateTo } from './server.mjs';
+import '../nitro/nitro.mjs';
+import 'node:http';
+import 'node:https';
+import 'node:events';
+import 'node:buffer';
+import 'node:fs';
+import 'node:path';
+import 'node:crypto';
+import 'node:url';
+import '@vue/shared';
+import 'perfect-debounce';
+import '../routes/renderer.mjs';
+import 'vue-bundle-renderer/runtime';
+import 'unhead/server';
+import 'devalue';
+import 'unhead/utils';
+import 'vue-router';
+
+const _sfc_main = /* @__PURE__ */ defineComponent({
+  __name: "index",
+  __ssrInlineRender: true,
+  async setup(__props) {
+    let __temp, __restore;
+    const keyword = ref("");
+    const active = ref("hot");
+    const { data, refresh, pending } = ([__temp, __restore] = withAsyncContext(() => useFetch(() => "/api/search/rank", {
+      query: { type: active },
+      watch: [active]
+    }, "$iUj-x_nlX-")), __temp = await __temp, __restore(), __temp);
+    const onCancel = () => navigateTo("/");
+    return (_ctx, _push, _parent, _attrs) => {
+      const _component_van_search = resolveComponent("van-search");
+      const _component_van_tabs = resolveComponent("van-tabs");
+      const _component_van_tab = resolveComponent("van-tab");
+      const _component_van_loading = resolveComponent("van-loading");
+      _push(`<div${ssrRenderAttrs(mergeProps({ class: "page" }, _attrs))} data-v-9fb3ccb1><div class="search-bar" data-v-9fb3ccb1>`);
+      _push(ssrRenderComponent(_component_van_search, {
+        modelValue: unref(keyword),
+        "onUpdate:modelValue": ($event) => isRef(keyword) ? keyword.value = $event : null,
+        placeholder: "请输入需要搜索的关键词",
+        shape: "round",
+        autofocus: "",
+        "show-action": "",
+        "action-text": "取消",
+        onCancel
+      }, null, _parent));
+      _push(`</div><div class="card" data-v-9fb3ccb1><div class="card-hd" data-v-9fb3ccb1><div class="title" data-v-9fb3ccb1>基金热度榜🔥</div><div class="sub" data-v-9fb3ccb1>更新于: ${ssrInterpolate(unref(data)?.updatedAt)}</div></div>`);
+      _push(ssrRenderComponent(_component_van_tabs, {
+        active: unref(active),
+        "onUpdate:active": ($event) => isRef(active) ? active.value = $event : null,
+        shrink: ""
+      }, {
+        default: withCtx((_, _push2, _parent2, _scopeId) => {
+          if (_push2) {
+            _push2(ssrRenderComponent(_component_van_tab, {
+              title: "热度榜",
+              name: "hot"
+            }, null, _parent2, _scopeId));
+            _push2(ssrRenderComponent(_component_van_tab, {
+              title: "加仓榜",
+              name: "add"
+            }, null, _parent2, _scopeId));
+            _push2(ssrRenderComponent(_component_van_tab, {
+              title: "实时涨幅榜",
+              name: "rise"
+            }, null, _parent2, _scopeId));
+            _push2(ssrRenderComponent(_component_van_tab, {
+              title: "实时跌幅榜",
+              name: "down"
+            }, null, _parent2, _scopeId));
+          } else {
+            return [
+              createVNode(_component_van_tab, {
+                title: "热度榜",
+                name: "hot"
+              }),
+              createVNode(_component_van_tab, {
+                title: "加仓榜",
+                name: "add"
+              }),
+              createVNode(_component_van_tab, {
+                title: "实时涨幅榜",
+                name: "rise"
+              }),
+              createVNode(_component_van_tab, {
+                title: "实时跌幅榜",
+                name: "down"
+              })
+            ];
+          }
+        }),
+        _: 1
+      }, _parent));
+      _push(`<div class="table" data-v-9fb3ccb1><div class="thead" data-v-9fb3ccb1><div class="th rank" data-v-9fb3ccb1>排名</div><div class="th name" data-v-9fb3ccb1>基金名称</div><div class="th chg" data-v-9fb3ccb1>日涨跌</div></div><div class="tbody" data-v-9fb3ccb1><!--[-->`);
+      ssrRenderList(unref(data)?.list, (item) => {
+        _push(`<div class="row" data-v-9fb3ccb1><div class="td rank" data-v-9fb3ccb1>${ssrInterpolate(item.rank)}</div><div class="td name" data-v-9fb3ccb1><div class="n" data-v-9fb3ccb1>${ssrInterpolate(item.name)}</div><div class="c" data-v-9fb3ccb1>${ssrInterpolate(item.code)}</div></div><div class="${ssrRenderClass([{ pos: item.changePct > 0, neg: item.changePct < 0 }, "td chg"])}" data-v-9fb3ccb1>${ssrInterpolate(item.changePct > 0 ? "+" : "")}${ssrInterpolate(item.changePct.toFixed(2))}% </div></div>`);
+      });
+      _push(`<!--]--></div></div>`);
+      if (unref(pending)) {
+        _push(`<div class="loading" data-v-9fb3ccb1>`);
+        _push(ssrRenderComponent(_component_van_loading, {
+          type: "spinner",
+          size: "20"
+        }, null, _parent));
+        _push(` 加载中...</div>`);
+      } else {
+        _push(`<!---->`);
+      }
+      _push(`</div></div>`);
+    };
+  }
+});
+const _sfc_setup = _sfc_main.setup;
+_sfc_main.setup = (props, ctx) => {
+  const ssrContext = useSSRContext();
+  (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("pages/search/index.vue");
+  return _sfc_setup ? _sfc_setup(props, ctx) : void 0;
+};
+const index = /* @__PURE__ */ _export_sfc(_sfc_main, [["__scopeId", "data-v-9fb3ccb1"]]);
+
+export { index as default };
+//# sourceMappingURL=index-B9Y62wYV.mjs.map
